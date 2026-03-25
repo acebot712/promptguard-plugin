@@ -16,7 +16,7 @@ Or manually: Cursor Settings > Plugins > search "promptguard" > Install.
 
 | Component | Description |
 |-----------|-------------|
-| **MCP Server** | Native MCP server (`promptguard mcp`) exposes 4 tools: scan text for threats, scan projects for unprotected LLM usage, redact PII, and check status. Works with Cursor, Claude Code, Windsurf, and any MCP-compatible client. |
+| **MCP Server** | Native MCP server (`promptguard mcp`) exposes 6 tools: auth, logout, scan text for threats, scan projects for unprotected LLM usage, redact PII, and check status. Works with Cursor, Claude Code, Windsurf, and any MCP-compatible client. |
 | **Rules** | Always-on guidance that ensures the Cursor agent writes secure LLM code. When you use OpenAI, Anthropic, or any supported provider, the agent knows to include PromptGuard. |
 | **Skill** | Step-by-step integration playbook. The agent uses this to add PromptGuard to any project -- detecting the language, choosing the right method, and configuring everything correctly. |
 | **Commands** | `/promptguard-scan` finds unprotected LLM calls and hardcoded secrets. `/promptguard-secure` adds PromptGuard to the project. |
@@ -79,6 +79,8 @@ The plugin includes a native MCP server built into the PromptGuard CLI. When ins
 
 | Tool | Description |
 |------|-------------|
+| `promptguard_auth` | Authenticate with PromptGuard. Opens the dashboard in the browser so the user can copy their API key, then saves it locally. |
+| `promptguard_logout` | Log out by removing the locally stored API key and configuration. |
 | `promptguard_scan_text` | Scan any text for prompt injection, jailbreaks, PII leakage, and toxic content. Returns decision, confidence, and threat details. |
 | `promptguard_scan_project` | Scan a project directory for unprotected LLM SDK usage across all supported providers. |
 | `promptguard_redact` | Redact PII (emails, phones, SSNs, credit cards, API keys) from text. Returns sanitized output. |
