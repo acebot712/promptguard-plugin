@@ -1,0 +1,52 @@
+---
+description: Security review checklist for LLM-powered applications. Invoke manually when reviewing AI code for production readiness.
+alwaysApply: false
+globs:
+  - "**/*"
+---
+
+llm-security-review:
+
+Use this checklist when reviewing code that integrates LLMs for production deployment.
+
+## Input security
+
+- [ ] User input is never concatenated directly into system prompts without scanning
+- [ ] All user-facing inputs pass through PromptGuard (or equivalent) before reaching the LLM
+- [ ] Input length limits are enforced (prevents prompt-stuffing DoS)
+- [ ] Multi-turn conversations preserve context boundaries (no cross-session leakage)
+
+## Output security
+
+- [ ] LLM responses are scanned for PII before returning to users
+- [ ] Responses are scanned for leaked API keys, credentials, or internal URLs
+- [ ] Output is sanitized before rendering in HTML (prevents stored XSS via LLM output)
+- [ ] Structured outputs (JSON, SQL) are validated against a schema before execution
+
+## Agent and tool security
+
+- [ ] Tool calls are validated against an allowlist before execution
+- [ ] Tool arguments are sanitized (no path traversal, command injection, SSRF)
+- [ ] Agent loops have a maximum iteration limit to prevent runaway execution
+- [ ] Sensitive tools (database writes, file system, network requests) require explicit confirmation or elevated permissions
+
+## Secrets and configuration
+
+- [ ] No API keys, tokens, or credentials are hardcoded in source files
+- [ ] LLM provider API keys are stored in environment variables or a secret manager
+- [ ] PromptGuard API key is set via environment variable, not in code
+- [ ] Production configurations disable debug/verbose logging that could leak prompt content
+
+## Data handling
+
+- [ ] PII redaction is enabled for any application handling personal data
+- [ ] Zero-retention mode is considered for applications under HIPAA, PCI-DSS, or GDPR
+- [ ] Conversation logs are retained per policy (Free: 24h, Pro: 7d, Scale: 30d, Enterprise: configurable)
+- [ ] Data export and deletion endpoints exist for GDPR right-to-access and right-to-erasure
+
+## Monitoring
+
+- [ ] Blocked requests trigger alerts (webhook, Slack, or logging)
+- [ ] Confidence scores from PromptGuard are logged for audit and threshold tuning
+- [ ] Rate limiting is configured per API key or user
+- [ ] Red team tests have been run against the application at least once

@@ -1,0 +1,24 @@
+{
+  "name": "promptguard",
+  "displayName": "PromptGuard",
+  "version": "1.0.0",
+  "description": "LLM security for Cursor -- protect AI applications from prompt injection, data leaks, and unsafe LLM usage",
+  "author": {
+    "name": "PromptGuard",
+    "email": "support@promptguard.co"
+  },
+  "homepage": "https://promptguard.co",
+  "repository": "https://github.com/acebot712/promptguard-cursor",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "llm",
+    "prompt-injection",
+    "ai-safety",
+    "pii",
+    "openai",
+    "anthropic",
+    "data-protection"
+  ],
+  "logo": "assets/logo.svg"
+}
