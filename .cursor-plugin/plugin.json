@@ -1,7 +1,7 @@
 {
   "name": "promptguard",
   "displayName": "PromptGuard",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "LLM security for Cursor -- protect AI applications from prompt injection, data leaks, and unsafe LLM usage",
   "author": {
     "name": "PromptGuard",
