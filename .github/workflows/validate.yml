@@ -1,0 +1,28 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Validate JSON manifests
+        run: |
+          python3 -c "import json; json.load(open('.cursor-plugin/plugin.json'))"
+          python3 -c "import json; json.load(open('mcp.json'))"
+
+      - name: Required files exist
+        run: |
+          test -f rules/secure-llm-usage.mdc
+          test -f rules/llm-security-review.mdc
+          test -f skills/secure-llm-integration/SKILL.md
+          test -f commands/promptguard-scan.md
+          test -f commands/promptguard-secure.md
+          test -f agents/llm-security-reviewer.md
+          test -f AGENTS.md
