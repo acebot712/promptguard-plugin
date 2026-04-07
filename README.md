@@ -86,7 +86,7 @@ The plugin includes a native MCP server built into the PromptGuard CLI. When ins
 | `promptguard_redact` | Redact PII (emails, phones, SSNs, credit cards, API keys) from text. Returns sanitized output. |
 | `promptguard_status` | Show current PromptGuard configuration, active providers, and key type. |
 
-**Manual MCP setup** (if not using the plugin):
+### Setup
 
 Add to your `.cursor/mcp.json` or global MCP config:
 
@@ -102,6 +102,28 @@ Add to your `.cursor/mcp.json` or global MCP config:
 ```
 
 This works with any MCP-compatible client: Cursor, Claude Code, Windsurf, Zed, etc.
+
+### Project attribution
+
+To associate MCP requests with a specific PromptGuard project (for per-project billing and analytics), set the `project_id` in your local `.promptguard.json`:
+
+```json
+{
+  "version": "1.0",
+  "api_key": "pg_sk_prod_...",
+  "project_id": "your-project-id",
+  "proxy_url": "https://api.promptguard.co/api/v1"
+}
+```
+
+Alternatively, select a project globally via the CLI:
+
+```bash
+promptguard projects list
+promptguard projects select <project-id>
+```
+
+The MCP server resolves the project in this order: local `.promptguard.json` `project_id` > global `~/.promptguard/credentials.json` `active_project`.
 
 ## Prerequisites
 
