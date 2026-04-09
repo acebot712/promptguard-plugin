@@ -1,97 +1,34 @@
 [![CI](https://github.com/acebot712/promptguard-cursor/actions/workflows/ci.yml/badge.svg)](https://github.com/acebot712/promptguard-cursor/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/acebot712/promptguard-cursor)](https://github.com/acebot712/promptguard-cursor/blob/main/LICENSE)
 
-# PromptGuard Plugin for Cursor
+# PromptGuard Agent Skills
 
-Protect LLM-powered applications from prompt injection, PII leakage, and data exfiltration -- directly from your editor.
+LLM security for AI coding agents — protect applications from prompt injection, PII leakage, and data exfiltration. Works with **Cursor, Claude Code, Codex, Copilot, Gemini CLI, Windsurf, VSCode**, and any MCP-compatible agent.
 
-## Quick install
+## Installing the MCP Server
+
+PromptGuard ships a native MCP server built into the CLI. Install the CLI first, then add the MCP server to your agent.
+
+### Prerequisites
+
+- **PromptGuard CLI**:
+  - macOS: `brew install promptguard/tap/promptguard`
+  - Linux/macOS: `curl -fsSL https://raw.githubusercontent.com/acebot712/promptguard-cli/main/install.sh | sh`
+  - Cargo: `cargo install promptguard`
+- **PromptGuard account** — sign up at [promptguard.co](https://promptguard.co)
+- **API key** — get one from [app.promptguard.co/settings/api-keys](https://app.promptguard.co/settings/api-keys)
+
+### Per-agent setup
+
+<details>
+<summary>Install in <b>Cursor</b></summary>
+<br />
 
 **One-click install** (opens Cursor and installs the plugin + MCP server):
 
-```
-cursor://anysphere.cursor-deeplink/mcp/install?name=promptguard&config=eyJjb21tYW5kIjoicHJvbXB0Z3VhcmQiLCJhcmdzIjpbIm1jcCIsIi10Iiwic3RkaW8iXX0=
-```
+[Install PromptGuard in Cursor](cursor://anysphere.cursor-deeplink/mcp/install?name=promptguard&config=eyJjb21tYW5kIjoicHJvbXB0Z3VhcmQiLCJhcmdzIjpbIm1jcCIsIi10Iiwic3RkaW8iXX0=)
 
-Or manually: Cursor Settings > Plugins > search "promptguard" > Install.
-
-## What's included
-
-| Component | Description |
-|-----------|-------------|
-| **MCP Server** | Native MCP server (`promptguard mcp`) exposes 6 tools: auth, logout, scan text for threats, scan projects for unprotected LLM usage, redact PII, and check status. Works with Cursor, Claude Code, Windsurf, and any MCP-compatible client. |
-| **Rules** | Always-on guidance that ensures the Cursor agent writes secure LLM code. When you use OpenAI, Anthropic, or any supported provider, the agent knows to include PromptGuard. |
-| **Skill** | Step-by-step integration playbook. The agent uses this to add PromptGuard to any project -- detecting the language, choosing the right method, and configuring everything correctly. |
-| **Commands** | `/promptguard-scan` finds unprotected LLM calls and hardcoded secrets. `/promptguard-secure` adds PromptGuard to the project. |
-| **Agent** | LLM Security Reviewer -- a specialized code reviewer that finds prompt injection vectors, PII leakage, agent tool abuse, and other LLM-specific vulnerabilities. |
-
-## How it works
-
-### Always-on rule: Secure LLM Usage
-
-When the Cursor agent writes code that imports OpenAI, Anthropic, Google AI, Cohere, Bedrock, LangChain, CrewAI, or Vercel AI SDK, the rule guides it to include `promptguard.init()` with proper configuration. No manual invocation needed.
-
-### Skill: Secure LLM Integration
-
-Activated when you ask the agent to add PromptGuard or build AI features. The skill walks through:
-
-1. Detecting the project language and LLM providers
-2. Choosing the right integration method (auto-instrumentation, Guard API, or HTTP proxy)
-3. Installing the SDK and adding initialization
-4. Configuring security settings
-5. Verifying the setup works
-
-Includes a full [LLM threat model reference](skills/secure-llm-integration/references/threat-model.md) covering prompt injection, PII leakage, data exfiltration, agent tool abuse, and more.
-
-### Command: `/promptguard-scan`
-
-Scans the project for:
-
-- Unprotected LLM SDK calls (missing PromptGuard)
-- Hardcoded API keys and secrets
-- Misconfigured PromptGuard initialization
-- Missing `.env` in `.gitignore`
-
-Reports findings in a severity-ranked table and offers to fix them.
-
-### Command: `/promptguard-secure`
-
-Adds PromptGuard to the project end-to-end:
-
-- Detects language, package manager, and entry points
-- Installs `promptguard-sdk`
-- Adds `init()` at the correct location (before LLM imports)
-- Sets up environment variables
-- Handles framework-specific patterns (Next.js, FastAPI, Lambda)
-
-### Agent: LLM Security Reviewer
-
-A specialized security reviewer that focuses exclusively on LLM application threats:
-
-- Prompt injection (direct and indirect)
-- PII leakage in prompts and responses
-- Agent and tool security (SQL injection via tools, SSRF, path traversal)
-- Secrets exposure in LLM context
-- Unsafe output handling (XSS via LLM responses)
-
-Only flags real, exploitable vulnerabilities with concrete attack scenarios and fixes. No noise.
-
-## MCP Server
-
-The plugin includes a native MCP server built into the PromptGuard CLI. When installed, Cursor (and other AI editors) can call these tools directly:
-
-| Tool | Description |
-|------|-------------|
-| `promptguard_auth` | Authenticate with PromptGuard. Opens the dashboard in the browser so the user can copy their API key, then saves it locally. |
-| `promptguard_logout` | Log out by removing the locally stored API key and configuration. |
-| `promptguard_scan_text` | Scan any text for prompt injection, jailbreaks, PII leakage, and toxic content. Returns decision, confidence, and threat details. |
-| `promptguard_scan_project` | Scan a project directory for unprotected LLM SDK usage across all supported providers. |
-| `promptguard_redact` | Redact PII (emails, phones, SSNs, credit cards, API keys) from text. Returns sanitized output. |
-| `promptguard_status` | Show current PromptGuard configuration, active providers, and key type. |
-
-### Setup
-
-Add to your `.cursor/mcp.json` or global MCP config:
+Or add to `.cursor/mcp.json`:
 
 ```json
 {
@@ -104,9 +41,137 @@ Add to your `.cursor/mcp.json` or global MCP config:
 }
 ```
 
-This works with any MCP-compatible client: Cursor, Claude Code, Windsurf, Zed, etc.
+Cursor also supports the plugin's rules, commands, and agent — install via Settings > Plugins > search "promptguard".
 
-### Project attribution
+</details>
+
+<details>
+<summary>Install in <b>Claude Code</b></summary>
+<br />
+
+```bash
+claude mcp add promptguard -- promptguard mcp -t stdio
+```
+
+</details>
+
+<details>
+<summary>Install in <b>VSCode / Copilot</b></summary>
+<br />
+
+Add to your `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "promptguard": {
+      "command": "promptguard",
+      "args": ["mcp", "-t", "stdio"]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Install in <b>Windsurf</b></summary>
+<br />
+
+Add to `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "promptguard": {
+      "command": "promptguard",
+      "args": ["mcp", "-t", "stdio"]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Install in <b>Codex</b></summary>
+<br />
+
+Add to your project's `.codex/mcp.json` or global MCP config:
+
+```json
+{
+  "mcpServers": {
+    "promptguard": {
+      "command": "promptguard",
+      "args": ["mcp", "-t", "stdio"]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Install in <b>Gemini CLI</b></summary>
+<br />
+
+Add to `~/.gemini/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "promptguard": {
+      "command": "promptguard",
+      "args": ["mcp", "-t", "stdio"]
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>Install in <b>any other MCP client</b></summary>
+<br />
+
+Run the MCP server via stdio:
+
+```bash
+promptguard mcp -t stdio
+```
+
+Configure your MCP client to spawn `promptguard mcp -t stdio` as a subprocess.
+
+</details>
+
+## MCP Tools
+
+When connected, the agent can call these tools directly:
+
+| Tool | Description |
+|------|-------------|
+| `promptguard_auth` | Authenticate with PromptGuard. Opens the dashboard to copy an API key. |
+| `promptguard_logout` | Remove locally stored credentials. |
+| `promptguard_scan_text` | Scan text for prompt injection, jailbreaks, PII leakage, and toxicity. |
+| `promptguard_scan_project` | Scan a project directory for unprotected LLM SDK usage. |
+| `promptguard_redact` | Redact PII (emails, phones, SSNs, credit cards, API keys) from text. |
+| `promptguard_status` | Show current configuration, active providers, and key type. |
+
+## What's included
+
+Beyond the MCP server, this repo includes agent skills and workflows:
+
+| Component | Description |
+|-----------|-------------|
+| **Skills** | **Secure LLM Integration** — walks through adding PromptGuard to any project. **PromptGuard API** — teaches the agent exact request/response schemas for scan, redact, and guard endpoints. |
+| **Commands** | `/promptguard-scan` finds unprotected LLM calls and hardcoded secrets. `/promptguard-secure` adds PromptGuard to a project end-to-end. |
+| **Agent** | LLM Security Reviewer — specialized code reviewer for prompt injection, PII leakage, agent tool abuse, and other LLM-specific vulnerabilities. |
+| **Rules** | Always-on guidance ensuring the agent writes secure LLM code when using OpenAI, Anthropic, or any supported provider. |
+
+These components work natively in Cursor (via the plugin system). For other agents, the skills and agent definitions use standard `SKILL.md` format compatible with Claude Code, Codex, and any agent that reads markdown skill files.
+
+## Project attribution
 
 To associate MCP requests with a specific PromptGuard project (for per-project billing and analytics), set the `project_id` in your local `.promptguard.json`:
 
@@ -119,26 +184,12 @@ To associate MCP requests with a specific PromptGuard project (for per-project b
 }
 ```
 
-Alternatively, select a project globally via the CLI:
+Or select a project globally:
 
 ```bash
 promptguard projects list
 promptguard projects select <project-id>
 ```
-
-The MCP server resolves the project in this order: local `.promptguard.json` `project_id` > global `~/.promptguard/credentials.json` `active_project`.
-
-## Prerequisites
-
-- **PromptGuard CLI** -- required for MCP server:
-  - macOS: `brew install promptguard/tap/promptguard`
-  - Linux/macOS: `curl -fsSL https://raw.githubusercontent.com/acebot712/promptguard-cli/main/install.sh | sh`
-  - Cargo: `cargo install promptguard-cli`
-- **PromptGuard account** -- sign up at [promptguard.co](https://promptguard.co)
-- **API key** -- get one from [app.promptguard.co/settings/api-keys](https://app.promptguard.co/settings/api-keys)
-- **PromptGuard SDK** (installed per-project):
-  - Python: `pip install promptguard-sdk`
-  - Node.js: `npm install promptguard-sdk`
 
 ## Supported LLM providers
 
@@ -148,6 +199,7 @@ OpenAI, Anthropic, Google Generative AI (Gemini), Cohere, AWS Bedrock, LangChain
 
 - [Documentation](https://docs.promptguard.co)
 - [Dashboard](https://app.promptguard.co)
+- [CLI](https://github.com/acebot712/promptguard-cli)
 - [Python SDK](https://github.com/acebot712/promptguard-python)
 - [Node.js SDK](https://github.com/acebot712/promptguard-node)
 - [Website](https://promptguard.co)
