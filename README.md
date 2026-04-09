@@ -49,9 +49,19 @@ Cursor also supports the plugin's rules, commands, and agent — install via Set
 <summary>Install in <b>Claude Code</b></summary>
 <br />
 
+**As a plugin** (includes skills, agents, and MCP server):
+
+```bash
+claude --plugin-dir /path/to/promptguard-cursor
+```
+
+Or add the MCP server standalone:
+
 ```bash
 claude mcp add promptguard -- promptguard mcp -t stdio
 ```
+
+To submit to the official Claude Code marketplace: [claude.ai/settings/plugins/submit](https://claude.ai/settings/plugins/submit)
 
 </details>
 
@@ -97,7 +107,29 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
 <summary>Install in <b>Codex</b></summary>
 <br />
 
-Add to your project's `.codex/mcp.json` or global MCP config:
+**As a plugin** (includes skills and MCP server):
+
+Copy to your repo plugins directory and register in your marketplace:
+
+```bash
+cp -R /path/to/promptguard-cursor ./plugins/promptguard
+```
+
+Add to `.agents/plugins/marketplace.json`:
+
+```json
+{
+  "name": "local-plugins",
+  "plugins": [{
+    "name": "promptguard",
+    "source": { "source": "local", "path": "./plugins/promptguard" },
+    "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+    "category": "Security"
+  }]
+}
+```
+
+Or add the MCP server standalone in `.codex/mcp.json`:
 
 ```json
 {
