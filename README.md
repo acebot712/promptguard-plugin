@@ -1,3 +1,6 @@
+[![CI](https://github.com/acebot712/promptguard-cursor/actions/workflows/ci.yml/badge.svg)](https://github.com/acebot712/promptguard-cursor/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/acebot712/promptguard-cursor)](https://github.com/acebot712/promptguard-cursor/blob/main/LICENSE)
+
 # PromptGuard Plugin for Cursor
 
 Protect LLM-powered applications from prompt injection, PII leakage, and data exfiltration -- directly from your editor.
