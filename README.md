@@ -1,5 +1,5 @@
-[![CI](https://github.com/acebot712/promptguard-cursor/actions/workflows/ci.yml/badge.svg)](https://github.com/acebot712/promptguard-cursor/actions/workflows/ci.yml)
-[![License](https://img.shields.io/github/license/acebot712/promptguard-cursor)](https://github.com/acebot712/promptguard-cursor/blob/main/LICENSE)
+[![CI](https://github.com/acebot712/promptguard-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/acebot712/promptguard-plugin/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/acebot712/promptguard-plugin)](https://github.com/acebot712/promptguard-plugin/blob/main/LICENSE)
 
 # PromptGuard Agent Skills
 
@@ -52,7 +52,7 @@ Cursor also supports the plugin's rules, commands, and agent — install via Set
 **As a plugin** (includes skills, agents, and MCP server):
 
 ```bash
-claude --plugin-dir /path/to/promptguard-cursor
+claude --plugin-dir /path/to/promptguard-plugin
 ```
 
 Or add the MCP server standalone:
@@ -112,7 +112,7 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
 Copy to your repo plugins directory and register in your marketplace:
 
 ```bash
-cp -R /path/to/promptguard-cursor ./plugins/promptguard
+cp -R /path/to/promptguard-plugin ./plugins/promptguard
 ```
 
 Add to `.agents/plugins/marketplace.json`:

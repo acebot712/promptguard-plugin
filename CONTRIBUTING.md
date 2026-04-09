@@ -104,7 +104,7 @@ To bump the plugin version, update `version` in `.cursor-plugin/plugin.json`.
 
 ## Reporting Issues
 
-Open an issue at https://github.com/acebot712/promptguard-cursor/issues with:
+Open an issue at https://github.com/acebot712/promptguard-plugin/issues with:
 
 - Cursor version
 - PromptGuard CLI version (`promptguard --version`)
