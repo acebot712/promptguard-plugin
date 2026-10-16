@@ -12,6 +12,12 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+### Changed
+
+- `SECURITY.md` links to the published disclosure policy
+  (https://promptguard.co/security#reporting-a-vulnerability) instead of
+  keeping its own copy of the response times.
+
 ## [1.4.0] — 2026-09-06
 
 The plugin ships instructions, so a wrong reference is a defect in the product
