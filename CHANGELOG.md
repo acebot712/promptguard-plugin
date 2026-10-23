@@ -12,8 +12,13 @@ survives three releases is a changelog nobody is maintaining.
 
 ## [Unreleased]
 
+## [1.4.1] — 2026-10-23
+
 ### Changed
 
+- The README's CLI install steps no longer offer a Homebrew tap or a
+  crates.io crate, neither of which exists. They give the install script, the
+  release binaries, and a link to the CLI's own installation table.
 - `SECURITY.md` links to the published disclosure policy
   (https://promptguard.co/security#reporting-a-vulnerability) instead of
   keeping its own copy of the response times.

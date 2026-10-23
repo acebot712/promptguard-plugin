@@ -12,9 +12,9 @@ PromptGuard ships a native MCP server built into the CLI. Install the CLI first,
 ### Prerequisites
 
 - **PromptGuard CLI**:
-  - macOS: `brew install promptguard/tap/promptguard`
-  - Linux/macOS: `curl -fsSL https://raw.githubusercontent.com/acebot712/promptguard-cli/main/install.sh | sh`
-  - Cargo: `cargo install promptguard`
+  - macOS/Linux: `curl -fsSL https://raw.githubusercontent.com/acebot712/promptguard-cli/main/install.sh | sh`
+  - Windows, or any platform: download the binary from [GitHub Releases](https://github.com/acebot712/promptguard-cli/releases/latest)
+  - Every method, including building from source: [the CLI's installation table](https://github.com/acebot712/promptguard-cli#installation)
 - **PromptGuard account** — sign up at [promptguard.co](https://promptguard.co)
 - **API key** — get one from [app.promptguard.co/settings/api-keys](https://app.promptguard.co/settings/api-keys)
 
